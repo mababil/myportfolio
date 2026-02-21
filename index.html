@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Ababil - Portfolio</title>
+    <meta name="description" content="Portfolio Muhammad Ababil - Data Analyst, Data Scientist & Software Engineer">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #f5f7fa;
+            --bg-secondary: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border: #e2e8f0;
+            --card-bg: #ffffff;
+            --sidebar-bg: #f8fafc;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --border: #334155;
+            --card-bg: #1e293b;
+            --sidebar-bg: #1a1f2e;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.2s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .spotlight {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transition: all 0.15s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        [data-theme="dark"] .spotlight {
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
+        }
+
+        @media (max-width: 768px) {
+            .cursor,
+            .cursor-follower,
+            .spotlight {
+                display: none;
+            }
+            
+            body {
+                cursor: auto;
+            }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle-fixed {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .theme-toggle-fixed:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sidebar-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+        }
+
+        .sidebar-btn:hover,
+        .sidebar-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Background */
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+            animation: gradientFloat 20s ease-in-out infinite;
+        }
+
+        [data-theme="dark"] .hero-gradient {
+            background: radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(139, 92, 246, 0.2) 0%, transparent 50%);
+        }
+
+        @keyframes gradientFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        /* Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* Grid Pattern */
+        .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Hero Content */
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .hero h1 .name-highlight {
+            background: linear-gradient(135deg, var(--accent), #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            display: inline-block;
+        }
+
+        .typing-container {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .typing-text {
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .cursor-blink {
+            display: inline-block;
+            width: 3px;
+            height: 2rem;
+            background: var(--accent);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .social-links-hero {
+            display: flex;
+            gap: 1.25rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 1s both;
+        }
+
+        .social-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .social-icon:hover::before {
+            opacity: 1;
+        }
+
+        .social-icon svg {
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-icon:hover {
+            color: white;
+            border-color: transparent;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.25rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 1.2s both;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            color: white;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8b5cf6, var(--accent));
+            transition: left 0.3s;
+        }
+
+        .btn-primary:hover::before {
+            left: 0;
+        }
+
+        .btn-primary span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating Animation for Hero Elements */
+        .hero-float {
+            animation: heroFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Stats Section in Hero */
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 4rem;
+            animation: fadeInUp 1s ease 1.4s both;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Rest of the styles remain the same as v1 */
+        /* Section */
+        section {
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        /* About Section - V1: Elegant Split Layout */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: var(--accent);
+        }
+
+        .info-card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .info-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            opacity: 0;
+        }
+
+        .info-card:hover .copy-btn {
+            opacity: 1;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .copy-btn.copied {
+            background: #10b981;
+            color: white;
+            border-color: #10b981;
+        }
+
+        /* About V1 Custom Styles */
+        .about-v1-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .about-photo-wrap {
+            position: relative;
+            width: 280px;
+            height: 320px;
+        }
+
+        .about-photo-wrap::before {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            opacity: 0.35;
+            transition: all 0.3s;
+        }
+
+        .about-photo-wrap:hover::before {
+            top: 10px;
+            left: 10px;
+            opacity: 0.6;
+        }
+
+        .about-photo-wrap img {
+            width: 280px;
+            height: 320px;
+            object-fit: cover;
+            object-position: top center;
+            border-radius: 20px;
+            display: block;
+            position: relative;
+            z-index: 1;
+            border: 3px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .about-photo-wrap:hover img {
+            transform: translate(-4px, -4px);
+            box-shadow: 0 28px 50px rgba(0,0,0,0.2);
+        }
+
+        .about-name-tag {
+            text-align: center;
+        }
+
+        .about-name-tag h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .about-name-tag .role-pill {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.4rem 1.1rem;
+            border-radius: 50px;
+            letter-spacing: 0.04em;
+        }
+
+        .about-quick-stats {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .about-stat {
+            text-align: center;
+        }
+
+        .about-stat-num {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            line-height: 1;
+        }
+
+        .about-stat-lbl {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.3rem;
+        }
+
+        .about-v1-right h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .about-v1-right p {
+            color: var(--text-secondary);
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+            font-size: 0.97rem;
+        }
+
+        .about-info-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.85rem;
+            margin-top: 1.75rem;
+        }
+
+        .about-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            transition: all 0.25s;
+        }
+
+        .about-info-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37,99,235,0.08);
+        }
+
+        .about-info-item .aii-icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Colored icons per type */
+        .aii-icon.icon-email  { background: rgba(59,130,246,0.12); color: #3b82f6; }
+        .aii-icon.icon-phone  { background: rgba(16,185,129,0.12); color: #10b981; }
+        .aii-icon.icon-loc    { background: rgba(239,68,68,0.12);  color: #ef4444; }
+        .aii-icon.icon-edu    { background: rgba(59,130,246,0.12); color: #3b82f6; }
+        .aii-icon.icon-degree { background: rgba(139,92,246,0.12); color: #8b5cf6; }
+        .aii-icon.icon-gpa    { background: rgba(245,158,11,0.12); color: #f59e0b; }
+
+        .about-info-item:hover .contact-copy-btn {
+            opacity: 1 !important;
+        }
+        .contact-copy-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+        .contact-copy-row p { margin: 0; color: var(--text-secondary); }
+        .contact-copy-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+            flex-shrink: 0;
+        }
+        .contact-copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+        .contact-copy-btn.copied { background: #10b981; color: white; border-color: #10b981; }
+
+        .about-info-item .aii-content {}
+
+        .about-info-item .aii-label {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .about-info-item .aii-value {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: block;
+            word-break: break-all;
+        }
+
+        .about-info-item .aii-value a {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .about-info-item .aii-value a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .about-v1-left {
+                align-items: center;
+            }
+            .about-info-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: var(--accent);
+        }
+
+        .skill-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1rem;
+        }
+
+        .skill-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Education Section */
+        .education-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            display: flex;
+            gap: 2rem;
+            align-items: start;
+            transition: all 0.3s;
+        }
+
+        .education-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: var(--accent);
+        }
+
+        .education-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .education-content {
+            flex: 1;
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            gap: 2rem;
+        }
+
+        .education-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-school {
+            font-size: 1.125rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-date {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .education-gpa {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 0.5rem;
+        }
+
+        /* Experience Section */
+        .experience-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .experience-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+            position: relative;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-color: var(--accent);
+        }
+
+        .experience-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .experience-content {
+            flex: 1;
+        }
+
+        .experience-date {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .experience-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .experience-company {
+            font-size: 1.125rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-description {
+            list-style: none;
+            padding: 0;
+        }
+
+        .experience-description li {
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .experience-description li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Portfolio Section */
+        .portfolio-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+            border-color: var(--accent);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 210px;
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            display: block;
+            transition: transform 0.4s ease, filter 0.3s ease;
+            filter: brightness(1);
+        }
+
+        .project-card:hover .project-thumbnail {
+            transform: scale(1.05);
+            filter: brightness(0.4);
+        }
+
+        .project-icon {
+            font-size: 4rem;
+            opacity: 0.9;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover .project-icon {
+            opacity: 0.25;
+            transform: scale(0.85);
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .overlay-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+        }
+
+        .overlay-btn:hover {
+            transform: scale(1.12);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+
+        .overlay-btn.github {
+            background: #24292e;
+            color: #ffffff;
+        }
+
+        .overlay-btn.live {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .contact-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+        }
+
+        .contact-form {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn-form {
+            background: var(--accent);
+            color: white;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-form:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-card,
+            .education-card {
+                flex-direction: column;
+            }
+
+            .theme-toggle-fixed {
+                top: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    <div class="spotlight"></div>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle-fixed" id="themeToggle">
+        <span id="themeIcon">🌙</span>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <button class="sidebar-btn active" data-section="home" title="Home">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+            </svg>
+        </button>
+        <button class="sidebar-btn" data-section="about" title="About">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+        </button>
+        <button class="sidebar-btn" data-section="education" title="Education">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+            </svg>
+        </button>
+        <button class="sidebar-btn" data-section="resume" title="Experience">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/>
+            </svg>
+        </button>
+        <button class="sidebar-btn" data-section="portfolio" title="Portfolio">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+            </svg>
+        </button>
+        <button class="sidebar-btn" data-section="contact" title="Contact">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Enhanced Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <div class="hero-gradient"></div>
+            <div class="grid-pattern"></div>
+            <div class="particles" id="particles"></div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="status-dot"></span>
+                <span>Available for New Opportunities</span>
+            </div>
+            
+            <h1>
+                Hi, I'm <span class="name-highlight">Muhammad Ababil</span>
+            </h1>
+            
+            <div class="typing-container">
+                <span>I'm </span>
+                <span class="typing-text" id="typingText"></span>
+                <span class="cursor-blink"></span>
+            </div>
+
+            <p class="hero-description">
+                Passionate about transforming data into actionable insights and building innovative solutions 
+                that drive business growth and technological advancement.
+            </p>
+            
+            <div class="social-links-hero">
+                <a href="https://github.com/mababil11" class="social-icon" target="_blank" title="GitHub">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://linkedin.com/in/mababil11" class="social-icon" target="_blank" title="LinkedIn">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/62895618252063" class="social-icon" target="_blank" title="WhatsApp">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                </a>
+                <a href="mailto:mhmmdababil11@gmail.com" class="social-icon" title="Email">
+                    <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="hero-cta">
+                <a href="#portfolio" class="btn btn-primary">
+                    <span>View My Work</span>
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <span>Get In Touch</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Rest of sections remain the same as v1 -->
+    <!-- I'll include the essential ones here, but the structure is identical to v1 -->
+
+    <!-- About Section - VERSION 1: Elegant Split with Photo -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About</h2>
+                <p class="section-subtitle">
+                    Information Systems graduate passionate about uncovering data patterns and developing scalable software."
+                </p>
+            </div>
+            <div class="about-grid">
+                <!-- LEFT: Foto + Quick Stats -->
+                <div class="about-v1-left">
+                    <div class="about-photo-wrap">
+                        <img src="images/ambii.jpg" alt="Muhammad Ababil" onerror="this.style.background='linear-gradient(135deg,#2563eb,#8b5cf6)';this.alt='MA'">
+                    </div>
+                    <div class="about-name-tag">
+                        <h3>Muhammad Ababil</h3>
+                        <span class="role-pill">Data Enthusiast &amp; Software Engineer</span>
+                    </div>
+                    <div class="about-quick-stats">
+                        <div class="about-stat">
+                            <span class="about-stat-num">3.46</span>
+                            <span class="about-stat-lbl">GPA</span>
+                        </div>
+                        <div class="about-stat">
+                            <span class="about-stat-num">4+</span>
+                            <span class="about-stat-lbl">Experience</span>
+                        </div>
+                        <div class="about-stat">
+                            <span class="about-stat-num">8+</span>
+                            <span class="about-stat-lbl">Projects</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: Bio + Info -->
+                <div class="about-v1-right">
+                    <h3>Hello, I'm Ababil 👋</h3>
+                    <p>
+                        A Bachelor of Information Systems graduate from Politeknik Caltex Riau with a GPA of 3.46, seeking opportunities to leverage technical 
+                        and analytical skills in a dynamic professional environment. Experienced in data management, process analysis, and cross-functional 
+                        collaboration through internships in data analytics, data science &amp; AI, and customer service roles.
+                    </p>
+                    <p>
+                        Proficient in Excel, SQL/Databases, Python, Power BI, and Tableau, with hands-on experience using ERP and Oracle-based systems. 
+                        Detail-oriented, quick learner, and motivated to contribute to organizational success through effective problem-solving and technology utilization.
+                    </p>
+
+                    <div class="about-info-list">
+                        <div class="about-info-item">
+                            <span class="aii-icon icon-email"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+                            <div class="aii-content">
+                                <span class="aii-label">Email</span>
+                                <span class="aii-value"><a href="mailto:mhmmdababil11@gmail.com">mhmmdababil11@gmail.com</a></span>
+                            </div>
+                        </div>
+                        <div class="about-info-item">
+                            <span class="aii-icon icon-phone"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.61 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+                            <div class="aii-content">
+                                <span class="aii-label">Phone</span>
+                                <span class="aii-value">+62 895-6182-52063</span>
+                            </div>
+                        </div>
+                        <div class="about-info-item">
+                            <span class="aii-icon icon-loc"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></span>
+                            <div class="aii-content">
+                                <span class="aii-label">Lokasi</span>
+                                <span class="aii-value">Pekanbaru, Riau</span>
+                            </div>
+                        </div>
+                        <div class="about-info-item">
+                            <span class="aii-icon icon-edu"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span>
+                            <div class="aii-content">
+                                <span class="aii-label">Universitas</span>
+                                <span class="aii-value">Politeknik Caltex Riau</span>
+                            </div>
+                        </div>
+                        <div class="about-info-item">
+                            <span class="aii-icon icon-degree"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></span>
+                            <div class="aii-content">
+                                <span class="aii-label">Gelar</span>
+                                <span class="aii-value">D4 Information System</span>
+                            </div>
+                        </div>
+                        <div class="about-info-item">
+                            <span class="aii-icon icon-gpa"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg></span>
+                            <div class="aii-content">
+                                <span class="aii-label">GPA</span>
+                                <span class="aii-value">3.46 / 4.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills, Education, Experience, Portfolio, Contact sections continue here -->
+    <!-- Due to length constraints, I'll add a script tag to load the remaining content -->
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Generate particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Typing effect
+        const roles = [' Data Enthusiast', 'Software Engineer', 'UI/UX Designer'];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeRole() {
+            const typingText = document.getElementById('typingText');
+            const currentRole = roles[roleIndex];
+
+            if (!isDeleting) {
+                typingText.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+                if (charIndex === currentRole.length) {
+                    isDeleting = true;
+                    setTimeout(typeRole, 2000);
+                    return;
+                }
+            } else {
+                typingText.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    roleIndex = (roleIndex + 1) % roles.length;
+                }
+            }
+
+            setTimeout(typeRole, isDeleting ? 50 : 100);
+        }
+
+        typeRole();
+
+        // Contact copy button
+        document.querySelectorAll('.contact-copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const text = btn.getAttribute('data-copy');
+                navigator.clipboard.writeText(text).then(() => {
+                    const orig = btn.innerHTML;
+                    btn.classList.add('copied');
+                    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+                    setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
+                });
+            });
+        });
+
+        // Copy functionality
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const text = btn.getAttribute('data-copy');
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalHTML = btn.innerHTML;
+                    btn.classList.add('copied');
+                    btn.innerHTML = '<svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                        btn.innerHTML = originalHTML;
+                    }, 2000);
+                });
+            });
+        });
+
+        // Custom cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        const spotlight = document.querySelector('.spotlight');
+
+        let mouseX = 0, mouseY = 0;
+        let followerX = 0, followerY = 0;
+        let spotlightX = 0, spotlightY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+        });
+
+        function animateFollower() {
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+            cursorFollower.style.left = followerX + 'px';
+            cursorFollower.style.top = followerY + 'px';
+            requestAnimationFrame(animateFollower);
+        }
+
+        function animateSpotlight() {
+            spotlightX += (mouseX - spotlightX) * 0.05;
+            spotlightY += (mouseY - spotlightY) * 0.05;
+            spotlight.style.left = spotlightX + 'px';
+            spotlight.style.top = spotlightY + 'px';
+            requestAnimationFrame(animateSpotlight);
+        }
+
+        animateFollower();
+        animateSpotlight();
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        html.setAttribute('data-theme', currentTheme);
+        themeIcon.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        themeToggle.addEventListener('click', () => {
+            const newTheme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeIcon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Sidebar navigation
+        document.querySelectorAll('.sidebar-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const section = btn.getAttribute('data-section');
+                document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Active sidebar on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            document.querySelectorAll('section[id]').forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.sidebar-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-section') === current) {
+                    btn.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll to top
+        const scrollTop = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            scrollTop.classList.toggle('active', window.scrollY > 300);
+        });
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+    <!-- Skills Section -->
+    <section style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Tech Stack</h2>
+                <p class="section-subtitle">
+                    Here are some of my technical skills.
+                </p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" class="skill-icon">
+                    <div class="skill-name">Python</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqldeveloper/sqldeveloper-original.svg" alt="SQL" class="skill-icon">
+                    <div class="skill-name">SQL</div>
+                </div>
+                 <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/pandas/150458" alt="Pandas" class="skill-icon">
+                    <div class="skill-name">Pandas</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" class="skill-icon">
+                    <div class="skill-name">PostgreSQL</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" alt="Power BI" class="skill-icon">
+                    <div class="skill-name">Power BI</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.worldvectorlogo.com/logos/tableau-software.svg" alt="Tableau" class="skill-icon">
+                    <div class="skill-name">Tableau</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/looker/4285F4" alt="Looker Studio" class="skill-icon">
+                    <div class="skill-name">Looker Studio</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.worldvectorlogo.com/logos/pentaho-2.svg" alt="Pentaho" class="skill-icon">
+                    <div class="skill-name">Pentaho</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/keras/D00000" alt="Keras" class="skill-icon">
+                    <div class="skill-name">Keras</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://muhammadauliaa.github.io/myPortfolio/assets/img/icon/webCrawling.jpg" alt="Web Crawling & Scraping" class="skill-icon">
+                    <div class="skill-name">Web Crawling & Scraping</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/tensorflow/FF6F00" alt="TensorFlow" class="skill-icon">
+                    <div class="skill-name">TensorFlow</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://img.icons8.com/color/96/microsoft-office-2019.png" alt="Microsoft Office" class="skill-icon">
+                    <div class="skill-name">Microsoft Office</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/pytorch/EE4C2C" alt="Pytorch" class="skill-icon">
+                    <div class="skill-name">Pytorch</div>
+                </div>
+                  <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/scikitlearn/F7931E" alt="Scikit-Learn" class="skill-icon">
+                    <div class="skill-name">Scikit-Learn</div>
+                </div>
+                 <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/googlesheets/34A853" alt="Spreadsheet" class="skill-icon">
+                    <div class="skill-name">Spreadsheet</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" alt="Oracle" class="skill-icon">
+                    <div class="skill-name">Oracle</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="AWS" class="skill-icon">
+                    <div class="skill-name">AWS</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma" class="skill-icon">
+                    <div class="skill-name">Figma</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/android/3 DDC84" alt="Android" class="skill-icon">
+                    <div class="skill-name">Android Studio</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/react/61DAFB" alt="React.js" class="skill-icon">
+                    <div class="skill-name">React.js</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" class="skill-icon">
+                    <div class="skill-name">JavaScript</div>
+                </div>   
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML" class="skill-icon">
+                    <div class="skill-name">HTML5</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" class="skill-icon">
+                    <div class="skill-name">CSS3</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" class="skill-icon">
+                    <div class="skill-name">Java</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/kotlin/7F52FF" alt="Kotlin" class="skill-icon">
+                    <div class="skill-name">Kotlin</div>
+                </div>
+                  <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/php/777BB4" alt="PHP" class="skill-icon">
+                    <div class="skill-name">PHP</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/laravel/FF2D20" alt="Laravel" class="skill-icon">
+                    <div class="skill-name">Laravel</div>
+                </div>
+                <div class="skill-card">
+                    <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" class="skill-icon">
+                    <div class="skill-name">Git</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Education</h2>
+            </div>
+            <div class="education-card">
+                <div class="education-icon" style="color:#3b82f6;background:rgba(59,130,246,0.15)"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></div>
+                <div class="education-content">
+                    <div class="education-header">
+                        <div>
+                            <div class="education-title">Politeknik Caltex Riau</div>
+                            <div class="education-school">Bachelor Information System</div>
+                            <div class="education-gpa">3.46/4.00</div>
+                        </div>
+                        <div class="education-date">Aug 2020 - Oct 2024</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="resume" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="experience-header">
+                <h2>Experience</h2>
+            </div>
+
+            <div class="experience-list">
+                <!-- Experience 1 -->
+                <div class="experience-card">
+                    <div class="experience-icon" style="color:#6366f1;background:rgba(99,102,241,0.15)"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+                    <div class="experience-content">
+                        <div class="experience-date">Nov 2024 - Nov 2025</div>
+                        <h3 class="experience-title">Customer Care</h3>
+                        <div class="experience-company">PT Aplikasi Kreasi Indonesia</div>
+                        <ul class="experience-description">
+                            <li>Handled and processed ±200 customer orders daily using ERP system to support distribution and service operations</li>
+                            <li>Managed customer order data, service status tracking, and issue resolution to ensure smooth distribution flow</li>
+                            <li>Prepared daily operational reports for supervisor to support monitoring and decision making</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 2 -->
+                <div class="experience-card">
+                    <div class="experience-icon" style="color:#06b6d4;background:rgba(6,182,212,0.15)"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></div>
+                    <div class="experience-content">
+                        <div class="experience-date">Feb 2024 - Jun 2024</div>
+                        <h3 class="experience-title">Intern Data Science & AI</h3>
+                        <div class="experience-company">Startup Campus - Jakarta</div>
+                        <ul class="experience-description">
+                            <li>Participated in various learning activities such as mentoring sessions, studium generale, and cycle meetings to enhance technical skills</li>
+                            <li>Developed a Stock Prediction and Monitoring Analysis System for banks</li>
+                            <li>Learning data science from the basics and utilizing Artificial Intelligence technology</li>
+                            <li>Developed dashboards and visualizations using Tableau for presentation and insight delivery</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 3 -->
+                <div class="experience-card">
+                    <div class="experience-icon" style="color:#10b981;background:rgba(16,185,129,0.15)"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/><line x1="2" x2="22" y1="20" y2="20"/></svg></div>
+                    <div class="experience-content">
+                        <div class="experience-date">Sep 2023 - Jan 2024</div>
+                        <h3 class="experience-title">Intern Data Analyst</h3>
+                        <div class="experience-company">PT. Telkom Indonesia - Pekanbaru</div>
+                        <ul class="experience-description">
+                            <li>Analyzed corporate customer data to support service delivery and operational efficiency</li>
+                            <li>Collaborated with Government Enterprise Services (GES) team in handling enterprise customer data and reporting</li>
+                            <li>Utilized Oracle-based systems to monitor and validate corporate customer input data</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 4 -->
+                <div class="experience-card">
+                    <div class="experience-icon" style="color:#f59e0b;background:rgba(245,158,11,0.15)"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+                    <div class="experience-content">
+                        <div class="experience-date">Jun 2020 - Aug 2020</div>
+                        <h3 class="experience-title">Maintenance Support</h3>
+                        <div class="experience-company">PT. Indah Kiat Pulp & Paper - Tualang</div>
+                        <ul class="experience-description">
+                            <li>Performed routine maintenance support on RB 13 unit, including cleaning chemical pipelines, equipment, and plant facilities</li>
+                            <li>Assisted in removing chemical blockages in heating systems and maintaining turbine components</li>
+                            <li>Conducted basic inspection on pipelines and supported pipe installation and dismantling under supervision</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Project</h2>
+                <p class="section-subtitle">
+                    Showcase dari berbagai proyek yang telah dikerjakan.
+                </p>
+            </div>
+
+            <div class="portfolio-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="ml & dl">Machine Learning & Deep Learning Project</button>
+                <button class="filter-btn" data-filter="data analyst">Data Analyst Project</button>
+                <button class="filter-btn" data-filter="software & system development">Software & System Development</button>
+                <button class="filter-btn" data-filter="ui ux">UI/UX Design</button>
+            </div>
+
+            <div class="projects-grid" id="projectsGrid"></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" style="background: var(--bg-secondary);">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="section-subtitle">
+                    Let's discuss data, technology, or collaboration opportunities.
+                </p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <h4><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;color:var(--accent)"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>Location</h4>
+                        <p>Pekanbaru, Riau 28266</p>
+                    </div>
+                    <div class="contact-card">
+                        <h4><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;color:var(--accent)"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>Email</h4>
+                        <div class="contact-copy-row">
+                            <p><a href="mailto:mhmmdababil11@gmail.com" style="color:var(--accent);text-decoration:none;">mhmmdababil11@gmail.com</a></p>
+                            <button class="contact-copy-btn" data-copy="mhmmdababil11@gmail.com" title="Salin email">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <h4><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:6px;color:var(--accent)"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.61 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Phone</h4>
+                        <p>+62 895-6182-52063</p>
+                    </div>
+                </div>
+
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-form">
+                        <span>Send Message</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://github.com/mababil11" class="social-link" target="_blank">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="https://linkedin.com/in/mababil11" class="social-link" target="_blank">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                </a>
+                <a href="https://wa.me/6282252209655" class="social-link" target="_blank">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="copyright">
+                © 2026 <strong>Muhammad Ababil</strong>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scroll to top button -->
+    <button class="scroll-top" id="scrollTop">↑</button>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Projects data
+        const projects = [
+            {
+                id: 1,
+                title: 'Implementasi Algoritma IndoBERT-Embedding dalam Analisis Sentimen Ulasan aplikasi eFootball 2025',
+                category: 'ml & dl',
+                tags: ['Python', 'PyTorch', 'IndoBERT', 'IndoBERT', 'NLP', 'Data Preprocessing' ],
+                description: 'Built an IndoBERT-based sentiment model (79% accuracy) to analyze 98K+ reviews and uncover critical performance issues in eFootball 2025',
+                icon: '🌐',
+                image: 'images/efootball.jpg',
+                github: 'https://github.com/mababil/Car-Classification-Data-Mining',
+                link: 'https://colab.research.google.com/drive/1W67c3QEpRnzTr2IHVCLJ4jzZ3W-yXX1D?usp=sharing'
+            },
+                        {
+                id: 2,
+                title: 'Classification Car',
+                category: 'ml & dl',
+                tags: ['Python', 'Node.CNN', 'TensorFlow', 'Flask', 'Model Deployment'],
+                description: 'Web-based application that classifies vehicle types (Bus, Pickup, Sport Car) using a Convolutional Neural Network, built with a complete ML pipeline from training to deployment.',
+                icon: '🌐',
+                image: 'images/car.jpg',
+                github: 'https://github.com/mababil/Car-Classification-Data-Mining',
+                link: 'https://drive.google.com/drive/folders/1fKSFqzfp9WelZGXwTYQxyNNtzJ0IKtKS?usp=sharing'
+            },
+            {
+                id: 3,
+                title: 'Data Analytics Project RevoU - SuperStore Dataset',
+                category: 'data analyst',
+                tags: ['Tableau', 'Business Analysis', 'Data Visualization', 'EDA'],
+                description: 'Interactive business dashboard analyzing retail sales, profit, regional performance, and product categories (2019–2024) to support data-driven decision making.',
+                icon: '💼',
+                image: 'images/superstore.png', 
+                github: 'https://www.notion.so/Data-Analytics-Project-RevoU-SuperStore-Dataset-1e76f6f95ec181b19187e23bcb45f320?source=copy_link',
+                link: 'https://public.tableau.com/views/SampleSuperstoreDashboard_17670198909530/Dashboard1?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link'
+            },
+            {
+                id: 4,
+                title: 'Transaction Data Analysis PT Aplikasi Kreasi Indonesia ',
+                category: 'data analyst',
+                tags: ['Excel', 'Pivot Table', 'Data Cleaning', 'Data Visualization'],
+                description: 'Data analysis project evaluating company performance, user needs, and growth opportunities to support strategic development of digital payment services.',
+                icon: '📱',
+                image: 'images/aki.png', 
+                github: 'https://www.notion.so/Analysis-Data-Transaksi-PT-Aplikasi-Kreasi-Indonesia-2666f6f95ec180f590feeafb0d85ed46?source=copy_link',
+                link: 'https://www.canva.com/design/DAGk47pD9ik/a718zdZUzvjbq5KuQSUT4g/edit'
+            },
+            {
+                id: 5,
+                title: 'SIKHAS Mobile Apps',
+                category: 'software & system development',
+                tags: ['Kotlin', 'Android SDK', 'Firebase'],
+                description: 'Develop cloud-based Android app for managing student financial records with real-time database and secure authentication.',
+                icon: '🗄️',
+                image: 'images/sikhas.jpg',
+                github: 'https://github.com/mababil/SIKHAS.git',
+                link: 'https://www.figma.com/proto/iYxXYVlixHr8KDwJgmon8F/SIKHAS?node-id=320-21&p=f&t=JlPsUT6LfhwVc3kl-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=320%3A21'
+            },
+            {   id: 6,
+                title: 'UI/UX | Es Teh Indonesia',
+                category: 'ui ux',
+                tags: ['UI/UX', 'Figma', 'CRM', 'User Research'],
+                description: 'Designed a Customer Relationship Management (CRM) mobile app to enhance customer loyalty through membership features, online ordering, promotions, and order tracking.',
+                icon: '📈',
+                image: 'images/drible.png',
+                github: 'https://www.notion.so/UI-UX-Es-Teh-Indonesia-2706f6f95ec1803d9c7dd743c232be08?source=copy_link',
+                link: 'https://www.figma.com/proto/KSW3aIUrlZM7xpG1ognYE8/Untitled?t=TzwSdmfPrCEWXUZz-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&node-id=307-310&starting-point-node-id=307%3A310](https://www.figma.com/proto/KSW3aIUrlZM7xpG1ognYE8/Untitled?t=TzwSdmfPrCEWXUZz-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&node-id=307-310&starting-point-node-id=307%3A310'
+            },
+            {   id: 7,
+                title: 'UI/UX | Seasors',
+                category: 'ui ux',
+                tags: ['UI/UX', 'User Flow', 'User Research'],
+                description: 'Designed a digital platform connecting local tailors (SMEs) with individuals and fashion brands, helping tailors gain job opportunities while making custom tailoring services more accessible.',
+                icon: '📈',
+                image: 'images/seasor.png',
+                github: 'https://www.notion.so/UI-UX-Seasors-2706f6f95ec180488b93c2ab6fd0800a?source=copy_link',
+                link: 'https://www.figma.com/proto/VX7E0HeFnGEaYTg7CHADTA/Seasors?node-id=43-967&t=BblomUkRuuHGog2h-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=43%3A967'
+            },
+            {   id: 8,
+                title: 'UI/UX | Gadoca Coffe    ',
+                category: 'ui ux',
+                tags: ['UI/UX', 'User Research', 'User Flow', 'Lean ux'],
+                description: 'Designed a mobile application enabling customers to scan table barcodes to view menus and place orders digitally, optimizing service speed, minimizing errors, and enhancing customer convenience.',
+                icon: '📈',
+                image: 'images/gadoca.jpg',
+                github: 'https://www.notion.so/UI-UX-Gadoca-Coffe-2706f6f95ec1806fa98ffebe220ff4d4?source=copy_link',
+                link: 'https://www.figma.com/proto/n1MxG1gxHf9n2861yfiT4Z/Gadoca?node-id=1-2918&t=v6jFkjVwDxEPSqLa-1&scaling=contain&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2918&show-proto-sidebar=1'
+            },
+            
+        ];
+
+        // Render projects
+        function renderProjects(filter = 'all') {
+            const grid = document.getElementById('projectsGrid');
+            const filteredProjects = filter === 'all' 
+                ? projects 
+                : projects.filter(p => p.category === filter);
+
+            grid.innerHTML = filteredProjects.map(project => `
+                <div class="project-card" data-category="${project.category}">
+                    <div class="project-image">
+                        ${project.image
+                            ? `<img src="${project.image}" alt="${project.title}" class="project-thumbnail">`
+                            : `<div class="project-icon">${project.icon}</div>`
+                        }
+                        <div class="project-overlay">
+                            <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="overlay-btn github" title="GitHub">
+                                <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </a>
+                            <a href="${project.link}" target="_blank" rel="noopener noreferrer" class="overlay-btn live" title="Live Project">
+                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                    <polyline points="15 3 21 3 21 9"/>
+                                    <line x1="10" y1="14" x2="21" y2="3"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">${project.title}</h3>
+                        <p class="project-description">${project.description}</p>
+                        <div class="project-tags">
+                            ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        renderProjects();
+
+        // Portfolio filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProjects(btn.getAttribute('data-filter'));
+            });
+        });
+
+        // Contact form
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = contactForm.querySelector('button[type="submit"]');
+                btn.innerHTML = '<span>Sent! ✓</span>';
+                btn.style.background = '#10b981';
+                setTimeout(() => {
+                    btn.innerHTML = '<span>Send Message</span>';
+                    btn.style.background = '';
+                    contactForm.reset();
+                }, 3000);
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .skill-card, .timeline-item, .contact-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+    </script>
+</body>
+</html>
